@@ -1,16 +1,24 @@
+import React, { Component } from "react";
+
 import { createMuiTheme } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import { COLORS } from "../constants";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: COLORS.teal,
     },
     secondary: {
-      main: green[500],
+      main: COLORS.blue,
     },
   },
 });
 
-export default theme;
+class Theme extends Component {
+  render() {
+    return <ThemeProvider theme={theme}>{this.props.children}</ThemeProvider>;
+  }
+}
+
+export default Theme;

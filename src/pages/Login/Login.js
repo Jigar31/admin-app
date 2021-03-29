@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import theme from "../../common/Theme";
-import Button from "@material-ui/core/Button";
+import Theme from "../../common/Theme";
 import TextField from "@material-ui/core/TextField";
+import StyledButton from "../../common/StyledButton";
+import { encodeBase64, decodeBase64 } from "../../utils/helpers";
 
 export class Login extends Component {
   constructor(props) {
@@ -15,30 +15,32 @@ export class Login extends Component {
   }
 
   login = () => {
-    console.log("username:", this.state.username);
-    console.log("password:", this.state.password);
+    console.log("username:", decodeBase64(this.state.username));
+    console.log("password:", decodeBase64(this.state.password));
   };
 
   render() {
     return (
-      <ThemeProvider theme={theme}>
+      <Theme>
         <div>
           <TextField
             label="Username"
             variant="outlined"
-            onChange={(e) => this.setState({ username: e.target.value })}
+            onChange={(e) =>
+              this.setState({ username: encodeBase64(e.target.value) })
+            }
           />
           <TextField
             label="Password"
             variant="outlined"
             type="password"
-            onChange={(e) => this.setState({ password: e.target.value })}
+            onChange={(e) =>
+              this.setState({ password: encodeBase64(e.target.value) })
+            }
           />
-          <Button variant="contained" onClick={this.login}>
-            Login
-          </Button>
+          <StyledButton label="Login" onClick={this.login} />
         </div>
-      </ThemeProvider>
+      </Theme>
     );
   }
 }
